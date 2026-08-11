@@ -14,7 +14,7 @@ client = Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 limiter = Limiter(
     get_remote_address,
     app=app,
-    default_limits=["30 per day"],
+    default_limits=["50 per day"],
     storage_uri="memory://",
 )
 
@@ -22,6 +22,7 @@ limiter = Limiter(
 @app.errorhandler(429)
 def ratelimit_handler(e):
     return jsonify({"error": "Rate limit reached. Please try again later."}), 429
+
 
 SYSTEM_PROMPT = """You are a senior QA automation engineer. Given a user story or requirement, \
 output ONLY valid JSON (no markdown fences, no preamble, no trailing commentary) with this exact shape:
@@ -43,18 +44,13 @@ Include 6-9 cases total, spanning all three categories (at least two of each whe
 Be specific to the actual requirement given - do not use generic placeholder cases."""
 
 
-
-
-
 @app.route("/")
 def index():
     return render_template("index.html")
 
-@app.route("/api/generate", methods=["POST"])
-@limiter.limit("5 per hour")
-def generate():
 
 @app.route("/api/generate", methods=["POST"])
+@limiter.limit("10 per hour")
 def generate():
     data = request.get_json(silent=True) or {}
     story = (data.get("story") or "").strip()
