@@ -3,11 +3,25 @@ import json
 from flask import Flask, request, jsonify, render_template
 from anthropic import Anthropic
 from dotenv import load_dotenv
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 load_dotenv()
 
 app = Flask(__name__)
 client = Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
+
+limiter = Limiter(
+    get_remote_address,
+    app=app,
+    default_limits=["30 per day"],
+    storage_uri="memory://",
+)
+
+
+@app.errorhandler(429)
+def ratelimit_handler(e):
+    return jsonify({"error": "Rate limit reached. Please try again later."}), 429
 
 SYSTEM_PROMPT = """You are a senior QA automation engineer. Given a user story or requirement, \
 output ONLY valid JSON (no markdown fences, no preamble, no trailing commentary) with this exact shape:
@@ -36,6 +50,9 @@ Be specific to the actual requirement given - do not use generic placeholder cas
 def index():
     return render_template("index.html")
 
+@app.route("/api/generate", methods=["POST"])
+@limiter.limit("5 per hour")
+def generate():
 
 @app.route("/api/generate", methods=["POST"])
 def generate():
