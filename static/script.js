@@ -24,9 +24,15 @@
       const response = await fetch('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ story })
-      });
-      const data = await response.json();
+  body: JSON.stringify({ story })
+});
+
+const contentType = response.headers.get('content-type') || '';
+if (!contentType.includes('application/json')) {
+  throw new Error(`Server returned an unexpected response (status ${response.status}). This usually means the request timed out - try again.`);
+}
+
+const data = await response.json();
 
       if (!response.ok) {
         throw new Error(data.error || `Server error (${response.status})`);
