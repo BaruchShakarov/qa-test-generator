@@ -29,6 +29,14 @@ Include 6-9 cases total, spanning all three categories (at least two of each whe
 Be specific to the actual requirement given - do not use generic placeholder cases."""
 
 
+@app.route("/debug-env")
+def debug_env():
+    key = os.environ.get("ANTHROPIC_API_KEY")
+    if not key:
+        return jsonify({"found": False, "message": "ANTHROPIC_API_KEY not found in environment"})
+    return jsonify({"found": True, "starts_with": key[:8], "length": len(key)})
+
+
 @app.route("/")
 def index():
     return render_template("index.html")
