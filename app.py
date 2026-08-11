@@ -55,13 +55,28 @@ def generate():
     try:
         response = client.messages.create(
             model="claude-sonnet-4-6",
-            max_tokens=2000,
+            max_tokens=4000,
             system=SYSTEM_PROMPT,
             messages=[{"role": "user", "content": story}],
         )
         text = "".join(block.text for block in response.content if hasattr(block, "text"))
         clean = text.replace("```json", "").replace("```", "").strip()
-        parsed = json.loads(clean)
+
+        try:
+            parsed = json.loads(clean)
+        except json.JSONDecodeError:
+            # Response likely got cut off mid-object - try to salvage the complete cases
+            last_brace = clean.rfind("}")
+            if last_brace == -1:
+                raise
+            repaired = clean[: last_brace + 1]
+            if not repaired.rstrip().endswith("]}"):
+                last_complete_case = repaired.rfind("},")
+                if last_complete_case != -1:
+                    repaired = repaired[: last_complete_case + 1] + "]}"
+            parsed = json.loads(repaired)
+            parsed.setdefault("playwright", "")
+
         return jsonify(parsed)
 
     except json.JSONDecodeError:
