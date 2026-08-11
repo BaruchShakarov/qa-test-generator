@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caseflow — QA test case generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main id="qtg">
+    <div class="eyebrow">AI-powered</div>
+    <h1>Caseflow — QA test case generator</h1>
+    <div class="sub">Paste a user story, get classified test cases and a ready-to-run Playwright spec.</div>
+
+    <textarea id="qtg-input" placeholder="e.g. As a registered user, I want to reset my password via email so that I can regain access to my account if I forget it."></textarea>
+    <div class="row">
+      <button class="primary" id="qtg-go">Generate test cases</button>
+      <button class="ghost" id="qtg-example">Load example</button>
+      <span id="qtg-status"></span>
+    </div>
+
+    <div id="qtg-console" class="console" style="display:none;"></div>
+    <div id="qtg-error" class="error" style="display:none;"></div>
+    <div id="qtg-results" style="display:none;">
+      <div class="tabs" id="qtg-tabs"></div>
+      <div id="qtg-cases"></div>
+      <div class="code-block">
+        <div class="code-header">
+          <span>playwright · test.spec.ts</span>
+          <button id="qtg-copy">copy</button>
+        </div>
+        <pre id="qtg-code"></pre>
+      </div>
+    </div>
+  </main>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

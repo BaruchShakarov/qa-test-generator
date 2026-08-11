@@ -1,0 +1,174 @@
+:root {
+  --bg: #F5F6F8;
+  --ink: #1A1D23;
+  --muted: #5F6B7A;
+  --border: #D8DCE3;
+  --accent: #0F6E56;
+  --console: #12151A;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: var(--ink);
+}
+
+#qtg {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 60px 24px 100px;
+}
+
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  font-size: 28px;
+  margin: 6px 0 4px;
+}
+
+.sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 120px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fff;
+  padding: 14px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  resize: vertical;
+  outline: none;
+  transition: border-color .15s;
+}
+textarea:focus { border-color: var(--accent); }
+
+.row {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+button.primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+button.primary:hover { background: #0C5A46; }
+button.primary:disabled { background: #A8AEB8; cursor: not-allowed; }
+
+button.ghost {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 16px;
+  font-size: 13px;
+  cursor: pointer;
+}
+button.ghost:hover { border-color: #A8AEB8; color: var(--ink); }
+
+#qtg-status {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.console {
+  margin-top: 26px;
+  background: var(--console);
+  border-radius: 12px;
+  padding: 16px 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  color: #9BA3AE;
+}
+.console .line { padding: 2px 0; }
+.console .ok { color: #4ADE9E; }
+
+.tabs { display: flex; gap: 6px; margin: 26px 0 14px; }
+.tab {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+  color: var(--muted);
+}
+.tab.active { background: var(--console); color: #fff; border-color: var(--console); }
+
+.case {
+  border: 1px solid #E4E7EC;
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 10px;
+  background: #fff;
+}
+.case-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.badge.positive { background: #E1F5EE; color: #085041; }
+.badge.negative { background: #FCEBEB; color: #791F1F; }
+.badge.edge { background: #FAEEDA; color: #633806; }
+.case-title { font-weight: 500; font-size: 14px; }
+.steps { font-size: 13px; color: #444A54; margin: 8px 0 6px; padding-left: 20px; }
+.expected { font-size: 12.5px; color: var(--muted); }
+.expected b { color: var(--ink); }
+
+.code-block { margin-top: 26px; background: var(--console); border-radius: 12px; overflow: hidden; }
+.code-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 16px; border-bottom: 1px solid #262B33;
+}
+.code-header span { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9BA3AE; }
+.code-header button {
+  background: transparent; border: 1px solid #3A404A; color: #9BA3AE;
+  border-radius: 6px; padding: 4px 10px; font-size: 11px; cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+}
+pre {
+  margin: 0; padding: 16px; font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; color: #D3D8DE; overflow-x: auto; line-height: 1.6;
+}
+
+.error {
+  margin-top: 16px; background: #FCEBEB; color: #791F1F;
+  padding: 12px 16px; border-radius: 8px; font-size: 13px;
+}
+
+.spinner {
+  display: inline-block; width: 12px; height: 12px;
+  border: 2px solid #3A404A; border-top-color: #4ADE9E; border-radius: 50%;
+  animation: spin .7s linear infinite; margin-left: 6px; vertical-align: -2px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
