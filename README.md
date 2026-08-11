@@ -4,7 +4,7 @@ Paste a user story or requirement, get back classified test cases (positive / ne
 and a ready-to-run Playwright spec — in seconds instead of the 30-60 minutes it usually takes
 a QA engineer to translate a requirement into a structured test suite manually.
 
-**Live demo:** _add your Railway URL here after deploying_
+**Live demo:** https://qa-test-generator-production-384e.up.railway.app
 
 ## Why this exists
 
